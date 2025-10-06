@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+$color-white: #FFFFFF;
+$primary-color-red: #8B0E2A;
+$shadow-color: rgb(34, 34, 34, 0.3);
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  src: url('./assets/fonts/Barlow/Barlow-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Bold';
+  src: url('./assets/fonts/Barlow/Barlow-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: bold;
+}
+
+$font-h1: 'Bebas Neue', sans-serif;
+$font-normal-regular: 'Barlow', sans-serif;
+$font-normal-bold: 'Barlow Bold', sans-serif;

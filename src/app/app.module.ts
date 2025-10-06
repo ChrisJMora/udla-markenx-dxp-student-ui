@@ -9,10 +9,12 @@ import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MarkenxHeaderComponent } from './markenx-header/markenx-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MarkenxHeaderComponent
   ],
   imports: [
     BrowserModule,
