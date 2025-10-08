@@ -1,0 +1,12 @@
+@use "../../styles.scss" as *;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  justify-content: stretch;
+  padding-top: 1rem;
+  padding-left: 17rem;
+  width: 37.625rem;
+}

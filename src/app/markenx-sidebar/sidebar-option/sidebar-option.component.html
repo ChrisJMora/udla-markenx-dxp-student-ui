@@ -1,0 +1,26 @@
+<div class="option-button" (click)="onSelected()">
+  <div *ngIf="isSelected && !isGroupOption" class="divisor"></div>
+  <button
+    pButton
+    class="option-button-content"
+    type="button"
+    [class.option-button-content--subgroup]="isGroupOption"
+    [class.selected]="isSelected"
+  >
+    <i [ngClass]="icon" pButtonIcon></i>
+    <span class="label" pButtonLabel>{{ value }}</span>
+  </button>
+</div>
+
+<div *ngIf="isSelected && hasItems" class="sidebar-group">
+  <ul *ngFor="let item of items" class="sidebar-group__options">
+    <li class="sidebar-group__option">
+      <app-sidebar-option
+        [sidebar]="sidebar"
+        [icon]="item.icon"
+        [value]="item.value"
+        [isGroupOption]="true"
+      ></app-sidebar-option>
+    </li>
+  </ul>
+<div>

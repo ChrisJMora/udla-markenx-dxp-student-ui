@@ -1,0 +1,72 @@
+@use "../../../styles.scss" as *;
+
+.p-button:focus,
+.p-button:active:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.option-button {
+  position: relative;
+  width: 20.625rem;
+  height: 3rem;
+
+  .divisor {
+    position: absolute;
+    width: 0.25rem;
+    height: 2.5rem;
+    z-index: 1;
+    background-color: $primary-color-red;
+  }
+
+  .option-button-content {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0.875rem;
+    margin: 0.25rem 0;
+    gap: 0.5rem;
+    width: 100%;
+    border-radius: 0;
+    background-color: $color-white;
+    border: none;
+    color: $color-black;
+
+    .label {
+      font-family: $font-normal-regular;
+      text-align: center;
+    }
+
+    &.selected {
+      color: $primary-color-red;
+      background-color: $primary-hover-red;
+    }
+
+    &:hover {
+      color: $primary-color-red;
+      background-color: $primary-hover-red;
+    }
+
+    &--subgroup {
+      margin: 0;
+      padding: 0.75rem 1.75rem;
+      color: $color-dark-gray;
+      background-color: $color-light-gray;
+
+      &.selected {
+        color: $color-dark-gray-80;
+        background-color: $color-light-gray-40;
+      }
+
+      &:hover {
+        color: $color-dark-gray-80;
+        background-color: $color-light-gray-40;
+      }
+    }
+  }
+}
+
+.sidebar-group__options {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
