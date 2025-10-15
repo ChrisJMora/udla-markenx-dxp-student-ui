@@ -8,19 +8,21 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
+import { DividerModule } from 'primeng/divider';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MarkenxHeaderComponent } from './markenx-header/markenx-header.component';
-import { AppSidebarComponent } from './markenx-sidebar/markenx-sidebar.component';
-import { AppSidebarOptionComponent } from './markenx-sidebar/sidebar-option/sidebar-option.component';
+import { AppMarkenxAssignmentsComponent } from './view/app-markenx-assignments/app-markenx-assignments.component';
+import { AppMarkenxLessonsComponent } from './view/app-markenx-lessons/app-markenx-lessons.component';
+
+import { MarkenxComponentsModule } from '@chrisjmora/markenx-dxp-components';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MarkenxHeaderComponent,
-    AppSidebarComponent,
-    AppSidebarOptionComponent,
+    AppMarkenxAssignmentsComponent,
+    AppMarkenxLessonsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,9 @@ import { AppSidebarOptionComponent } from './markenx-sidebar/sidebar-option/side
     TableModule,
     MenuModule,
     PanelModule,
+    DividerModule,
+    BreadcrumbModule,
+    MarkenxComponentsModule,
     AppRoutingModule
   ],
   providers: [],
