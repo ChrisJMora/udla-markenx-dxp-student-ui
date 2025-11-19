@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
@@ -14,6 +15,9 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,17 +29,28 @@ import { MarkenxTaskComponent } from './view/app-markenx-tasks/markenx-task/mark
 
 import { DatePipe } from '@angular/common';
 
+// Auth Components
+import { LoginComponent } from './features/auth/login/login.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+
+// Auth Services and Interceptors
+import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
     AppMarkenxAssignmentsComponent,
     AppMarkenxLessonsComponent,
     MarkenxTaskComponent,
+    LoginComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     ButtonModule,
     TableModule,
     MenuModule,
@@ -48,8 +63,18 @@ import { DatePipe } from '@angular/common';
     DropdownModule,
     CalendarModule,
     PaginatorModule,
+    InputTextModule,
+    CardModule,
+    TooltipModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

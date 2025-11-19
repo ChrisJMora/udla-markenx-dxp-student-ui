@@ -1,6 +1,12 @@
-<app-markenx-layout
-  headerTitle="ISWZ3104-INTRODUCCIÓN A MARKETING I"
-  userName="Christian Jácome"
-  [menuItems]="menuItems">
+<div *ngIf="isAuthenticated$ | async; else loginView">
+  <app-markenx-layout
+    headerTitle="ISWZ3104-INTRODUCCIÓN A MARKETING I"
+    userName="Christian Jácome"
+    [menuItems]="menuItems">
+    <router-outlet></router-outlet>
+  </app-markenx-layout>
+</div>
+
+<ng-template #loginView>
   <router-outlet></router-outlet>
-</app-markenx-layout>
+</ng-template>

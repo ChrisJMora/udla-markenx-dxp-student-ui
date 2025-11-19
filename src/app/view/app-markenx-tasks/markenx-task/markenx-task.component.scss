@@ -67,6 +67,11 @@ $accent-color-yellow: #dd890a;
       color: var.$primary-color-red;
       border: 1px solid var.$primary-color-red;
     }
+    &--overdue {
+      color: var.$primary-color-red;
+      border: 1px solid var.$primary-color-red;
+      background-color: rgba(#ff0000, 0.05);
+    }
   }
 
   &__details-summary {

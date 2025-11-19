@@ -9,8 +9,6 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./app-markenx-tasks.component.scss'],
 })
 export class AppMarkenxAssignmentsComponent implements OnInit {
-  public studentId: number = 1;
-
   public statusList: Array<any> = [];
   public selectedStatus: string | null = null;
 
@@ -30,7 +28,7 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
 
   public ngOnInit(): void {
     this._loadStatusList().then(() => {
-      this._loadTasks(this.studentId, this.currentPage, this.size);
+      this._loadTasks(this.currentPage, this.size);
     });
   }
 
@@ -44,7 +42,6 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
   }
 
   private _loadTasks(
-    studentId: number,
     page: number = 0,
     size: number = 5,
     status?: string,
@@ -52,20 +49,56 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
     endDate?: string | null
   ) {
     this._tasksViewModel
-      .getAllStudentTasks(studentId, page, size, status, startDate, endDate)
+      .getAllStudentTasks(page, size, status, startDate, endDate)
       .then((response) => {
-        this.tasks = response.content.map((task: any) => {
-          const status = this.statusList.find(
-            (s) => s.id === task.currentStatus
-          );
+        // El nuevo endpoint devuelve un array directamente, no un objeto paginado
+        const tasksArray = Array.isArray(response) ? response : [];
+        
+        this.tasks = tasksArray.map((studentTask: any) => {
+          // Verificar si la tarea está vencida
+          const dueDate = new Date(studentTask.task.endDate);
+          const isOverdue = dueDate < new Date();
+          
+          // Determinar el estado real
+          let finalStatus = studentTask.assignmentStatus;
+          let finalStatusLabel = studentTask.assignmentStatus;
+          let finalStatusModifier = studentTask.assignmentStatus.toLowerCase().replaceAll('_', '-');
+          
+          if (isOverdue && finalStatus !== 'COMPLETED' && finalStatus !== 'GRADED') {
+            finalStatus = 'OVERDUE';
+            finalStatusLabel = 'VENCIDA';
+            finalStatusModifier = 'overdue';
+          } else {
+            const status = this.statusList.find((s) => s.id === studentTask.assignmentStatus);
+            if (status) {
+              finalStatusLabel = status.label;
+              finalStatusModifier = status.id.toLowerCase().replaceAll('_', '-');
+            }
+          }
+          
           return {
-            ...task,
-            statusModifier: status ? status.id.toLowerCase().replaceAll('_', '-') : task.currentStatus,
-            statusLabel: status ? status.label : task.currentStatus,
+            // Mapear desde la nueva estructura
+            id: studentTask.studentTaskId,
+            code: studentTask.studentTaskCode,
+            title: studentTask.task.name,
+            summary: studentTask.task.description,
+            description: studentTask.task.description,
+            maxAttempts: studentTask.task.maxAttempts,
+            activeAttempt: studentTask.attemptCount,
+            dueDate: studentTask.task.endDate,
+            startDate: studentTask.task.startDate,
+            maxScore: studentTask.task.maxScore,
+            minScoreToPass: studentTask.task.minScoreToPass,
+            courseCode: studentTask.task.courseCode,
+            courseName: studentTask.task.courseName,
+            currentStatus: finalStatus,
+            statusModifier: finalStatusModifier,
+            statusLabel: finalStatusLabel,
+            // Datos originales
+            originalData: studentTask
           };
         });
-        this.size = response.size;
-        this.totalRecords = response.totalElements;
+        this.totalRecords = tasksArray.length;
       })
       .catch((err) => console.error(err));
   }
@@ -73,7 +106,7 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
   public onPageChange(event: any) {
     this.currentPage = event.page ?? 0;
     this.size = event.rows ?? 0;
-    this._loadTasks(this.studentId, this.currentPage, this.size);
+    this._loadTasks(this.currentPage, this.size);
   }
 
   public onFilter() {
@@ -88,7 +121,6 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
     if (this.selectedStatus == null) return;
 
     this._loadTasks(
-      this.studentId,
       this.currentPage,
       this.size,
       this.selectedStatus,
@@ -105,9 +137,8 @@ export class AppMarkenxAssignmentsComponent implements OnInit {
     this.dateRange = null;
     this.selectedStatus = null;
     this._loadTasks(
-      this.studentId,
       this.currentPage,
-      this.size,
+      this.size
     );
   }
 }

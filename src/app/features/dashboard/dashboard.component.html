@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Bienvenido a MarkenX</h1>
+      <button 
+        pButton 
+        icon="pi pi-sign-out" 
+        label="Cerrar Sesión"
+        class="p-button-text"
+        (click)="logout()">
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+    <p>Cargando información...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !loading" class="error-container">
+    <i class="pi pi-exclamation-triangle"></i>
+    <p>{{ errorMessage }}</p>
+    <button pButton label="Reintentar" (click)="loadStudentData()"></button>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!loading && !errorMessage" class="dashboard-content">
+    <!-- Student Profile Section -->
+    <div class="profile-section">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <i class="pi pi-user"></i>
+          </div>
+          <div class="profile-info">
+            <h2>{{ studentProfile?.firstName }} {{ studentProfile?.lastName }}</h2>
+            <p class="profile-email">{{ studentProfile?.email }}</p>
+            <p class="profile-code">Código: {{ studentProfile?.studentCode }}</p>
+          </div>
+        </div>
+        
+        <div class="profile-details" *ngIf="studentProfile?.course">
+          <div class="detail-item">
+            <span class="detail-label">Curso:</span>
+            <span class="detail-value">{{ studentProfile?.course?.name }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Código:</span>
+            <span class="detail-value">{{ studentProfile?.course?.code }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Créditos:</span>
+            <span class="detail-value">{{ studentProfile?.course?.credits }}</span>
+          </div>
+          <div class="detail-item" *ngIf="studentProfile?.course?.academicTerm">
+            <span class="detail-label">Período:</span>
+            <span class="detail-value">{{ studentProfile?.course?.academicTerm?.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks Section -->
+    <div class="tasks-section">
+      <div class="section-header">
+        <h2>Mis Tareas Asignadas</h2>
+        <span class="task-count">{{ tasks.length }} tareas</span>
+      </div>
+
+      <div *ngIf="tasks.length === 0" class="empty-state">
+        <i class="pi pi-inbox"></i>
+        <p>No tienes tareas asignadas en este momento</p>
+      </div>
+
+      <div class="tasks-grid" *ngIf="tasks.length > 0">
+        <div class="task-card" *ngFor="let task of tasks">
+          <div class="task-header">
+            <h3>{{ task.task.name }}</h3>
+            <span class="task-status" [ngClass]="getTaskStatusClass(task.assignmentStatus)">
+              {{ getTaskStatusLabel(task.assignmentStatus) }}
+            </span>
+          </div>
+          
+          <p class="task-description">{{ task.task.description }}</p>
+          
+          <div class="task-meta">
+            <div class="meta-item">
+              <i class="pi pi-calendar"></i>
+              <span>Inicio: {{ task.task.startDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="pi pi-calendar"></i>
+              <span>Fin: {{ task.task.endDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="pi pi-replay"></i>
+              <span>Intentos: {{ task.attemptCount }}/{{ task.task.maxAttempts }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="pi pi-star"></i>
+              <span>Puntuación: {{ task.task.maxScore }} pts</span>
+            </div>
+          </div>
+          
+          <button 
+            pButton 
+            label="Ver Detalles" 
+            icon="pi pi-arrow-right"
+            class="p-button-text task-button"
+            (click)="viewTask(task)">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

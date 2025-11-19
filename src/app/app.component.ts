@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppMarkenxMenuItem } from '@chrisjmora/markenx-dxp-components';
+import { AuthService } from './core/auth/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title = 'udla-markenx-dxp-student-ui';
+  public isAuthenticated$: Observable<boolean>;
 
   public menuItems: AppMarkenxMenuItem[] = [
+    {
+      value: 'dashboard',
+      label: 'Inicio',
+      icon: 'pi pi-home',
+      route: '/dashboard',
+    },
     {
       value: 'assignments',
       label: 'Tareas',
@@ -49,4 +59,21 @@ export class AppComponent {
       route: '/progress',
     },
   ];
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.isAuthenticated$ = this.authService.authStatus$;
+  }
+
+  ngOnInit(): void {
+    // Verificar autenticación al iniciar
+    const currentUrl = this.router.url;
+    if (!this.authService.isAuthenticated()) {
+      if (currentUrl !== '/login' && currentUrl !== '/') {
+        this.router.navigate(['/login']);
+      }
+    }
+  }
 }

@@ -21,7 +21,7 @@
     </div>
     <div class="task-card__meta-item">
       <span class="task-card__meta-label">Fecha límite</span>
-      <span class="task-card__meta-value">{{ task.dueDate }}</span>
+      <span class="task-card__meta-value">{{ task.dueDate | date:'dd/MM/yyyy' }}</span>
     </div>
   </div>
 
@@ -30,22 +30,33 @@
       *ngIf="showPlayButton"
       class="task-card__button task-card__button--play"
       icon="pi pi-play"
-      aria-label="Play"
+      aria-label="Iniciar"
       styleClass="p-button-text"
+      [pTooltip]="'Iniciar tarea'"
     ></p-button>
     <p-button
-    *ngIf="showRetryButton"
+      *ngIf="showRetryButton"
       class="task-card__button task-card__button--retry"
       icon="pi pi-refresh"
-      aria-label="Retry"
+      aria-label="Reintentar"
       styleClass="p-button-text"
+      [pTooltip]="'Reintentar tarea'"
+    ></p-button>
+    <p-button
+      *ngIf="showContinueButton"
+      class="task-card__button task-card__button--continue"
+      icon="pi pi-arrow-right"
+      aria-label="Continuar"
+      styleClass="p-button-text"
+      [pTooltip]="'Continuar tarea'"
     ></p-button>
     <p-button
       *ngIf="showHistoryButton"
       class="task-card__button task-card__button--history"
       icon="pi pi-history"
-      aria-label="History"
+      aria-label="Historial"
       styleClass="p-button-text"
+      [pTooltip]="'Ver historial'"
     ></p-button>
   </div>
 </div>

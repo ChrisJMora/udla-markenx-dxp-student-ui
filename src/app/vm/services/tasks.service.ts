@@ -11,18 +11,23 @@ export class TasksService {
   constructor(private _http: HttpClient) {}
 
   public getAllStudentTasks(
-    studentId: number,
-    page: number,
-    size: number,
+    page?: number,
+    size?: number,
     status?: string,
     startDate?: string | null,
     endDate?: string | null
   ): Observable<any> {
-    const url = `${this.baseUrl}/${studentId}/tasks`;
+    const url = `${this.baseUrl}/me/tasks`;
 
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
+    let params = new HttpParams();
+
+    if (page !== undefined) {
+      params = params.set('page', page.toString());
+    }
+
+    if (size !== undefined) {
+      params = params.set('size', size.toString());
+    }
 
     if (status) {
       params = params.set('status', status);

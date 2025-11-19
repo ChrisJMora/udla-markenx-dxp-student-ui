@@ -9,15 +9,14 @@ export class TasksViewModel {
   constructor(private _tasksService: TasksService) {}
 
   public getAllStudentTasks(
-    studentId: number,
-    page: number,
-    size: number,
+    page?: number,
+    size?: number,
     status?: string,
     startDate?: string | null,
     endDate?: string | null
   ): Promise<any> {
     return firstValueFrom(
-      this._tasksService.getAllStudentTasks(studentId, page, size, status, startDate, endDate)
+      this._tasksService.getAllStudentTasks(page, size, status, startDate, endDate)
     );
   }
 }
