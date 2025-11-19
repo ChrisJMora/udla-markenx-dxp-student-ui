@@ -20,9 +20,12 @@
             "outputPath": "dist/udla-markenx-dxp-student-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/@chrisjmora/markenx-dxp-assets/scss/core"
+              ]
+            },
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -75,6 +78,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "udla-markenx-dxp-student-ui:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "udla-markenx-dxp-student-ui:build:production"

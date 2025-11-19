@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppMarkenxAssignmentsComponent as AppAssignmentsComponent } from './view/app-markenx-assignments/app-markenx-assignments.component';
+import { AppMarkenxAssignmentsComponent as AppAssignmentsComponent } from './view/app-markenx-tasks/app-markenx-tasks.component';
 import { AppMarkenxLessonsComponent as AppLessonsComponent } from './view/app-markenx-lessons/app-markenx-lessons.component';
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'assignments',
     component: AppAssignmentsComponent,
-    data: { breadcrumb: 'Mis Asignaciones' },
+    data: { breadcrumb: 'Mis Tareas' },
   },
   {
     path: 'lessons',

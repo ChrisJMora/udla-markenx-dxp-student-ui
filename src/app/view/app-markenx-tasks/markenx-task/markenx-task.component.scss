@@ -1,0 +1,131 @@
+@use "_variables" as var;
+
+$accent-color-green: #0f804f;
+$accent-color-yellow: #dd890a;
+
+.task-card {
+  height: 98px;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  &__details {
+    width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 5px;
+  }
+
+  &__details-header {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__details-header-title {
+    font-family: var.$font-normal-regular;
+    font-size: 16px;
+    font-weight: bold;
+    color: var.$primary-color-red;
+  }
+
+  &__details-header-status-badge {
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    padding: 2px 4px;
+
+    border-radius: 50px;
+    border: 1px solid var.$gray-color-dark;
+
+    font-family: var.$font-normal-regular;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var.$gray-color-dark;
+
+    &--not-started {
+      color: var.$gray-color-dark;
+      border: 1px solid var.$gray-color-dark;
+    }
+    &--completed {
+      color: $accent-color-green;
+      border: 1px solid $accent-color-green;
+    }
+    &--in-progress {
+      color: $accent-color-yellow;
+      border: 1px solid $accent-color-yellow;
+    }
+    &--outdated {
+      color: var.$primary-color-red;
+      border: 1px solid var.$primary-color-red;
+    }
+  }
+
+  &__details-summary {
+    font-family: var.$font-normal-regular;
+    font-size: 12px;
+    margin: 0px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 14.4px;
+  }
+
+  :host ::ng-deep &__divider .p-divider.p-divider-vertical {
+    margin: 0px;
+
+    &::before {
+      border-left: 1px solid var.$gray-color-dark;
+    }
+  }
+
+  &__meta {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: inherit;
+  }
+
+  &__meta-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    text-align: center;
+    font-family: var.$font-normal-regular;
+  }
+
+  &__meta-label {
+    font-weight: bold;
+    color: var.$gray-color-dark-80;
+  }
+
+  :host ::ng-deep &__button {
+    .p-button {
+      color: var.$primary-color-red;
+    }
+
+    .p-button-icon {
+      font-size: 20px;
+    }
+  }
+
+  &__actions {
+    width: 96px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

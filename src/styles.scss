@@ -1,0 +1,8 @@
+@use "_variables" as var;
+
+.app-page {
+  &__title {
+    font-family: var.$font-h1;
+    font-size: 64px;
+  }
+}

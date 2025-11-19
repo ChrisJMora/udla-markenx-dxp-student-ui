@@ -1,0 +1,81 @@
+@use "_variables" as var;
+
+.tasks-page {
+  &__list {
+    padding-top: 16px;
+  }
+
+  &__list > div:nth-child(even) {
+    background-color: var.$gray-color-light;
+  }
+
+  &__filters {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    // justify-content: space-between;
+    align-items: end;
+    // gap: 16px;
+    gap: 16px;
+  }
+
+  &__filter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__filter-label {
+    font-family: var.$font-normal-regular;
+    color: var.$gray-color-dark;
+    font-weight: bold;
+    padding-left: 8px;
+  }
+
+  :host ::ng-deep &__calendar {
+    .p-calendar {
+      // width: 341px;
+      width: 100%;
+      height: 48px;
+      .p-inputtext {
+        font-family: var.$font-normal-regular;
+        &::placeholder {
+          color: var.$gray-color-light-40;
+        }
+      }
+    }
+  }
+
+  :host ::ng-deep &__dropdown {
+    .p-dropdown {
+      // width: 341px;
+      width: 100%;
+      height: 48px;
+      .p-dropdown-label.p-placeholder {
+        font-family: var.$font-normal-regular;
+        color: var.$gray-color-light-40;
+      }
+      .p-icon {
+        color: var.$gray-color-light-40;
+      }
+    }
+  }
+
+  :host ::ng-deep &__button {
+    .p-button {
+      width: 144px;
+      flex-grow: 1;
+      height: 48px;
+      border-radius: 10px;
+      background-color: var.$primary-color-red;
+      border: none;
+      box-shadow: none;
+
+      .p-button-label {
+        font-family: var.$font-normal-regular;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+}

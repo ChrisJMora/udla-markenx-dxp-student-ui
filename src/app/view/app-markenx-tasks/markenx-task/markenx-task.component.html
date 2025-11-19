@@ -1,0 +1,51 @@
+<div class="task-card">
+  <div class="task-card__details">
+    <div class="task-card__details-header">
+      <span class="task-card__details-header-title">{{ task.title }}</span>
+      <span class="task-card__details-header-status-badge
+                   task-card__details-header-status-badge--{{ task.statusModifier }}"
+        >{{ task.statusLabel }}</span
+      >
+    </div>
+    <p class="task-card__details-summary">{{ task.summary }}</p>
+  </div>
+
+  <p-divider layout="vertical" class="task-card__divider" />
+
+  <div class="task-card__meta">
+    <div class="task-card__meta-item">
+      <span class="task-card__meta-label">Intentos</span>
+      <span class="task-card__meta-value"
+        >{{ task.activeAttempt }}/{{ task.maxAttempts }}</span
+      >
+    </div>
+    <div class="task-card__meta-item">
+      <span class="task-card__meta-label">Fecha límite</span>
+      <span class="task-card__meta-value">{{ task.dueDate }}</span>
+    </div>
+  </div>
+
+  <div class="task-card__actions">
+    <p-button
+      *ngIf="showPlayButton"
+      class="task-card__button task-card__button--play"
+      icon="pi pi-play"
+      aria-label="Play"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+    *ngIf="showRetryButton"
+      class="task-card__button task-card__button--retry"
+      icon="pi pi-refresh"
+      aria-label="Retry"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      *ngIf="showHistoryButton"
+      class="task-card__button task-card__button--history"
+      icon="pi pi-history"
+      aria-label="History"
+      styleClass="p-button-text"
+    ></p-button>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<span class="app-page__title">Tareas</span>
+
+<form (ngSubmit)="onFilter()" #filterForm="ngForm">
+  <div class="tasks-page__filters">
+    <div class="tasks-page__filter">
+      <label
+        for="status-dropdown"
+        class="tasks-page__filter-label"
+        >Estado:</label>
+      <p-dropdown
+        [inputId]="'status-dropdown'"
+        class="tasks-page__dropdown"
+        [options]="statusList"
+        [(ngModel)]="selectedStatus"
+        name="status"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Seleccione estado"
+      ></p-dropdown>
+    </div>
+    <div class="tasks-page__filter">
+      <label
+        for="due-date-calendar"
+        class="tasks-page__filter-label"
+        >Fecha límite:</label>
+      <p-calendar
+        [inputId]="'due-date-calendar'"
+        class="tasks-page__calendar"
+        selectionMode="range"
+        [(ngModel)]="dateRange"
+        name="dateRange"
+        [dateFormat]="'yy-mm-dd'"
+        [showIcon]="true"
+        placeholder="Seleccione rango"
+      ></p-calendar>
+    </div>
+    <p-button
+      *ngIf="filtersValueChanged"
+      class="tasks-page__button"
+      label="Borrar filtros"
+      (onClick)="onResetFilters()"
+    ></p-button>
+    <p-button
+      class="tasks-page__button"
+      type="submit"
+      label="Buscar"
+    ></p-button>
+  </div>
+</form>
+
+<div class="tasks-page__list">
+  <div *ngFor="let task of tasks">
+    <app-markenx-task [task]="task"></app-markenx-task>
+  </div>
+</div>
+
+<div class="tasks-page__paginator">
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [rows]="size"
+    [totalRecords]="totalRecords"
+  ></p-paginator>
+</div>

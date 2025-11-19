@@ -12,7 +12,7 @@ export class AppComponent {
   public menuItems: AppMarkenxMenuItem[] = [
     {
       value: 'assignments',
-      label: 'Asignaciones',
+      label: 'Tareas',
       icon: 'pi pi-file-edit',
       route: '/assignments',
     },
